@@ -1,0 +1,134 @@
+// ============================================================================
+// PRISMA SCHEMA FOR DOUBLE-BLIND RELATIONSHIP AUDIT
+// ----------------------------------------------------------------------------
+// Key Architectural Patterns:
+// 1. Double-blind privacy enforcement at the data layer
+// 2. Response state machine (draft -> submitted)
+// 3. Mandatory acknowledgment tracking
+// ============================================================================
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =============================================
+// AUTH MODELS (Better Auth compatible)
+// =============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  responses       Response[]
+  acknowledgments Acknowledgment[]
+  sessions        Session[]
+  accounts        Account[]
+
+  @@map("user")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+}
+
+// =============================================
+// CORE DOMAIN MODELS
+// =============================================
+
+/// Pre-seeded relationship prompts/questions
+model Prompt {
+  id        String   @id @default(cuid())
+  text      String   @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  responses Response[]
+
+  @@index([order])
+}
+
+/// Partner's response to a prompt (draft or submitted)
+model Response {
+  id          String    @id @default(cuid())
+  promptId    String
+  userId      String
+  content     String    @db.Text // HTML from Tiptap
+  isSubmitted Boolean   @default(false)
+  submittedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  prompt          Prompt           @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  acknowledgments Acknowledgment[]
+
+  @@unique([promptId, userId])
+  @@index([promptId])
+  @@index([userId])
+}
+
+/// Acknowledgment that a partner has read the other's response
+model Acknowledgment {
+  id             String   @id @default(cuid())
+  responseId     String
+  userId         String // User who acknowledged (reader, not author)
+  acknowledgedAt DateTime @default(now())
+
+  response Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([responseId, userId])
+  @@index([responseId])
+  @@index([userId])
+}
