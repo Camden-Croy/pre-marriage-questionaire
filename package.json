@@ -14,6 +14,7 @@
     "seed": "npx tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.5",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "^7.3.0",
