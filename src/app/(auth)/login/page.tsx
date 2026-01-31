@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,14 +13,13 @@ import {
 } from "@/components/ui/card";
 
 export default function LoginPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Check for access denied error from callback
   const callbackError = searchParams.get("error");
-  const accessDenied = callbackError === "access_denied" || error === "ACCESS_DENIED";
+  const accessDenied = callbackError === "access_denied";
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
@@ -33,11 +32,7 @@ export default function LoginPage() {
       });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Authentication failed";
-      if (errorMessage.includes("ACCESS_DENIED")) {
-        setError("ACCESS_DENIED");
-      } else {
-        setError(errorMessage);
-      }
+      setError(errorMessage);
       setIsLoading(false);
     }
   };
@@ -60,8 +55,7 @@ export default function LoginPage() {
             <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-center text-sm text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-400">
               <p className="font-medium">Access Denied</p>
               <p className="mt-1">
-                This app is restricted to authorized users only. Please contact the app
-                administrator if you believe this is an error.
+                This app is restricted to authorized users only.
               </p>
             </div>
           )}
@@ -85,10 +79,6 @@ export default function LoginPage() {
             )}
             {isLoading ? "Signing in..." : "Sign in with Google"}
           </Button>
-
-          <p className="text-center text-xs text-muted-foreground">
-            Only authorized partners can access this application.
-          </p>
         </CardContent>
       </Card>
     </div>

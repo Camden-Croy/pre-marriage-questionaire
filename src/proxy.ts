@@ -5,7 +5,6 @@ import {
   authRoutes,
   DEFAULT_LOGIN_REDIRECT,
   DEFAULT_DASHBOARD_REDIRECT,
-  UNAUTHORIZED_REDIRECT,
 } from "@/routes";
 
 /**
@@ -14,7 +13,7 @@ import {
  */
 const WHITELISTED_EMAILS = [
   "camdencroy4@gmail.com",
-  "camden@transformwebsolutions.com",
+  "jordanmstacy1@gmail.com",
   // Add more authorized emails here
 ];
 
@@ -29,38 +28,22 @@ function isEmailWhitelisted(email: string): boolean {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  console.log("Proxy running for:", pathname);
-  
   const session = await getSession();
   const isLoggedIn = !!session?.user;
-
-  console.log("Session:", { isLoggedIn, email: session?.user?.email });
-
   const isAuthRoute = authRoutes.includes(pathname);
-  const isUnauthorizedRoute = pathname === UNAUTHORIZED_REDIRECT;
 
   // Allow API routes to pass through
   if (pathname.startsWith("/api")) {
     return NextResponse.next();
   }
 
-  // Handle logged-in users - whitelist check takes priority
+  // Handle logged-in users
   if (isLoggedIn && session?.user?.email) {
     const isWhitelisted = isEmailWhitelisted(session.user.email);
-    console.log("Whitelist check:", { email: session.user.email, isWhitelisted });
 
-    // Non-whitelisted users can ONLY access the unauthorized page
+    // Non-whitelisted users get redirected back to login
     if (!isWhitelisted) {
-      if (!isUnauthorizedRoute) {
-        console.log("Redirecting non-whitelisted user to unauthorized");
-        return NextResponse.redirect(new URL(UNAUTHORIZED_REDIRECT, request.url));
-      }
-      return NextResponse.next();
-    }
-
-    // Whitelisted users should not see unauthorized page
-    if (isUnauthorizedRoute) {
-      return NextResponse.redirect(new URL(DEFAULT_DASHBOARD_REDIRECT, request.url));
+      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT + "?error=access_denied", request.url));
     }
 
     // Whitelisted users on auth routes go to dashboard
@@ -71,8 +54,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Non-logged-in users: only allow auth routes and unauthorized page
-  if (!isAuthRoute && !isUnauthorizedRoute) {
+  // Non-logged-in users: only allow auth routes
+  if (!isAuthRoute) {
     return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, request.url));
   }
 
