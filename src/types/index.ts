@@ -43,6 +43,7 @@ export interface PartnerResponseState {
  */
 export interface PromptWithStatus {
   id: string;
+  title: string;
   text: string;
   order: number;
   status: PromptStatus;

@@ -127,56 +127,128 @@
 /* Tiptap Editor Styles */
 .tiptap-content {
   /* Headings */
-  h1 {
+  & h1 {
     @apply text-2xl font-bold mt-4 mb-2;
   }
-  h2 {
+  & h2 {
     @apply text-xl font-bold mt-3 mb-2;
   }
-  h3 {
+  & h3 {
     @apply text-lg font-semibold mt-2 mb-1;
   }
 
   /* Paragraphs */
-  p {
+  & p {
     @apply my-2;
   }
 
   /* Lists */
-  ul {
+  & ul {
     @apply list-disc pl-6 my-2;
   }
-  ol {
+  & ol {
     @apply list-decimal pl-6 my-2;
   }
-  li {
+  & li {
     @apply my-1;
   }
 
   /* Blockquote */
-  blockquote {
+  & blockquote {
     @apply border-l-4 border-zinc-300 dark:border-zinc-600 pl-4 my-2 italic text-zinc-600 dark:text-zinc-400;
   }
 
   /* Code */
-  code {
+  & code {
     @apply bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-sm font-mono;
   }
-  pre {
+  & pre {
     @apply bg-zinc-100 dark:bg-zinc-800 p-3 rounded my-2 overflow-x-auto;
   }
-  pre code {
+  & pre code {
     @apply bg-transparent p-0;
   }
 
   /* Links */
-  a {
+  & a {
     @apply text-rose-600 underline cursor-pointer;
   }
 
   /* Placeholder */
-  .is-editor-empty:first-child::before {
+  & .is-editor-empty:first-child::before {
     @apply text-zinc-400 float-left h-0 pointer-events-none;
     content: attr(data-placeholder);
+  }
+}
+
+/* Markdown Renderer Styles */
+.markdown-content {
+  /* Headings */
+  & h1 {
+    @apply text-2xl font-bold mt-4 mb-2;
+  }
+  & h2 {
+    @apply text-xl font-bold mt-3 mb-2;
+  }
+  & h3 {
+    @apply text-lg font-semibold mt-2 mb-1;
+  }
+
+  /* Paragraphs */
+  & p {
+    @apply my-2;
+  }
+
+  /* Strong/Bold */
+  & strong {
+    @apply font-semibold;
+  }
+
+  /* Emphasis/Italic */
+  & em {
+    @apply italic;
+  }
+
+  /* Lists */
+  & ul {
+    @apply list-disc pl-6 my-2;
+  }
+  & ol {
+    @apply list-decimal pl-6 my-2;
+  }
+  & li {
+    @apply my-1;
+  }
+
+  /* Nested lists */
+  & li > ul,
+  & li > ol {
+    @apply my-1;
+  }
+
+  /* Blockquote */
+  & blockquote {
+    @apply border-l-4 border-zinc-300 dark:border-zinc-600 pl-4 my-2 italic text-zinc-600 dark:text-zinc-400;
+  }
+
+  /* Code */
+  & code {
+    @apply bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+  & pre {
+    @apply bg-zinc-100 dark:bg-zinc-800 p-3 rounded my-2 overflow-x-auto;
+  }
+  & pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* Links */
+  & a {
+    @apply text-rose-600 dark:text-rose-400 underline cursor-pointer;
+  }
+
+  /* Horizontal rule */
+  & hr {
+    @apply my-4 border-zinc-200 dark:border-zinc-700;
   }
 }

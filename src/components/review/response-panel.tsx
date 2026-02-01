@@ -29,7 +29,6 @@ export function ResponsePanel({ type, children, className }: ResponsePanelProps)
 
   const response = type === 'mine' ? state.myResponse : state.partnerResponse
   const label = type === 'mine' ? 'My Response' : "Partner's Response"
-  const accentColor = type === 'mine' ? 'rose' : 'blue'
 
   if (!response) {
     return (
@@ -86,11 +85,7 @@ export function ResponsePanel({ type, children, className }: ResponsePanelProps)
       <CardContent className="space-y-4">
         {/* Formatted HTML content */}
         <div
-          className={cn(
-            'prose prose-sm dark:prose-invert max-w-none',
-            'prose-p:my-2 prose-ul:my-2 prose-li:my-0.5',
-            `prose-strong:text-${accentColor}-700 dark:prose-strong:text-${accentColor}-400`
-          )}
+          className="markdown-content"
           dangerouslySetInnerHTML={{ __html: response.content || '' }}
         />
 

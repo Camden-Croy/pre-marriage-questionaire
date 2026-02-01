@@ -21,63 +21,150 @@ const prisma = new PrismaClient({ adapter });
  */
 const RELATIONSHIP_PROMPTS = [
   {
-    text: `Daily Logistics & Priorities
+    title: "Daily Logistics & Priorities",
+    text: `Walk through a typical weekday with **two school-aged children** (requiring active teaching) and a **toddler**, from 6:00 AM to 10:00 PM.
 
-Let's get very granular. Walk me through a specific Tuesday in our future life where we have two school-aged children (requiring active teaching) and a toddler. From 6:00 AM to 10:00 PM, block out the schedule. If the plan includes 'part-time work' or 'maintaining a professional license,' specifically slot those hours into this day. Who is supervising the toddler during those hours? Who is teaching the math lesson? Who is cooking dinner? If the schedule becomes unmanageable, what is the first thing to get cut: the professional work hours, the depth of the homeschooling curriculum, or our leisure time?`,
+Consider:
+- Who supervises the toddler during work or teaching hours?
+- Who handles the math lesson? Who cooks dinner?
+- If the plan includes *part-time work* or *maintaining a professional license*, where do those hours fit?
+
+**When the schedule becomes unmanageable**, what gets cut first:
+1. Professional work hours
+2. Depth of homeschooling curriculum
+3. Leisure time`,
     order: 1,
   },
   {
-    text: `Theology vs. Psychology
+    title: "Theology vs. Psychology",
+    text: `Imagine a child struggling with **deep anxiety and low self-worth**, expressing that they feel "broken" or "wrong."
 
-Let's look at a specific scenario where theology and psychology often collide. Imagine one of our children is struggling with deep anxiety and low self-worth, expressing that they feel 'broken' or 'wrong.' A secular clinical approach often emphasizes 'self-love,' validating the child's inner feelings as truth, and avoiding 'shame.' A Reformed Biblical approach often emphasizes our identity in Christ, the reality of our fallen nature, and turning *outward* to God rather than inward to self. If these two frameworks suggest opposite solutions, which one wins? Can we use clinical tools (like coping mechanisms or cognitive behavioral therapy) without adopting the secular worldview (that the self is sovereign)? Please give an example of one psychological concept you would strictly *forbid* in our home.`,
+Two frameworks often suggest different approaches:
+- **Secular clinical**: Emphasizes self-love, validating inner feelings as truth, avoiding shame
+- **Reformed Biblical**: Emphasizes identity in Christ, the reality of fallen nature, turning *outward* to God rather than inward
+
+Questions to address:
+1. If these frameworks suggest opposite solutions, which one takes precedence?
+2. Can clinical tools (coping mechanisms, CBT) be used without adopting a secular worldview?
+3. Name one psychological concept that would be **strictly off-limits** in the home.`,
     order: 2,
   },
   {
-    text: `The Reality of Home Education
+    title: "The Reality of Home Education",
+    text: `Beyond the ideal of home education, consider the **practical burdens**.
 
-We have discussed the desire to educate our children at home. Let's move beyond the 'ideal' and discuss the 'burden.' If the primary teacher is pregnant, ill, or experiencing burnout, what is the contingency plan? Are we willing to sacrifice the quality of education during hard seasons, or do we outsource to schools/co-ops? Furthermore, describe the *type* of curriculum you envision: is it strictly religious and classical, or does it incorporate modern secular materials? How do we measure success?`,
+**Contingency planning:**
+- If the primary teacher is pregnant, ill, or experiencing burnout, what happens?
+- Is sacrificing educational quality during hard seasons acceptable, or is outsourcing to schools/co-ops preferred?
+
+**Curriculum vision:**
+- Strictly religious and classical, or incorporating modern secular materials?
+- How is success measured?`,
     order: 3,
   },
   {
-    text: `Decision Making & Conflict Resolution
+    title: "Decision Making & Conflict Resolution",
+    text: `Disagreement in marriage is inevitable.
 
-In a marriage, disagreement is inevitable. Please define your understanding of 'Headship' and 'Submission' within our relationship. In a practical scenario where we have discussed a major decision (e.g., a move, a large purchase, or a church choice) and—after prayer and debate—we still fundamentally disagree, how do we reach a final conclusion? Who holds the veto power, and what is the attitude of the other person once the decision is made?`,
+**Define your understanding of:**
+- *Headship* and *Submission* within the relationship
+
+**Scenario:** A major decision (a move, large purchase, or church choice) has been discussed. After prayer and debate, fundamental disagreement remains.
+
+Questions:
+1. How is a final conclusion reached?
+2. Who holds veto power?
+3. What is the expected attitude of the other person once the decision is made?`,
     order: 4,
   },
   {
-    text: `Financial Stewardship & Standard of Living
+    title: "Financial Stewardship & Standard of Living",
+    text: `Assuming a **single income** to facilitate parenting goals:
 
-Assuming we operate on a single income to facilitate our parenting goals, what does our 'standard of living' look like? Please list three specific luxuries, habits, or conveniences you currently enjoy that you are willing to give up permanently to make the budget work. Conversely, what is one financial non-negotiable or 'safety net' you feel you *must* have to feel secure? How do we handle it if the single income covers the necessities but leaves little room for savings or vacations?`,
+**Sacrifices:**
+List three specific luxuries, habits, or conveniences currently enjoyed that could be given up *permanently* to make the budget work.
+
+**Non-negotiables:**
+What is one financial safety net that feels essential for security?
+
+**Tension point:**
+How should it be handled if the single income covers necessities but leaves little room for savings or vacations?`,
     order: 5,
   },
   {
-    text: `Philosophy of Discipline
+    title: "Philosophy of Discipline",
+    text: `Describe a philosophy of discipline across ages:
+- **Toddler** (ages 2-4)
+- **Teenager** (ages 13-16)
 
-Describe your philosophy of discipline for a toddler (ages 2-4) compared to a teenager (ages 13-16). Where do you stand on the spectrum of 'gentle parenting' versus 'authoritative biblical correction' (including physical discipline)? If one of our children enters a season of rebellion—rejecting our faith or household rules—how do we handle their presence in our home? At what point do boundaries trump unconditional acceptance?`,
+**Spectrum positioning:**
+Where on the spectrum between *gentle parenting* and *authoritative biblical correction* (including physical discipline)?
+
+**Rebellion scenario:**
+If a child enters a season of rebellion—rejecting faith or household rules:
+- How is their presence in the home handled?
+- At what point do boundaries take precedence over unconditional acceptance?`,
     order: 6,
   },
   {
-    text: `Medical Philosophy & Biological Trust
+    title: "Medical Philosophy & Biological Trust",
+    text: `Navigating the medical system requires trust.
 
-Navigating the medical system requires trust. What is your stance on standard medical procedures, specifically regarding birth plans (home birth vs. hospital) and childhood vaccination schedules? Do you view the medical establishment as a generally benevolent authority we should follow, or a secular system we should be skeptical of? In a disagreement regarding a medical procedure for a child, whose intuition carries more weight: the mother's, the father's, or the doctor's?`,
+**Stance on standard procedures:**
+- Birth plans: home birth vs. hospital
+- Childhood vaccination schedules
+
+**Worldview:**
+Is the medical establishment viewed as a generally benevolent authority to follow, or a secular system warranting skepticism?
+
+**Disagreement resolution:**
+In a disagreement regarding a medical procedure for a child, whose intuition carries more weight:
+1. Mother's
+2. Father's
+3. Doctor's`,
     order: 7,
   },
   {
-    text: `Technology, Privacy, and Data
+    title: "Technology, Privacy, and Data",
+    text: `Digital privacy in a surveillance economy.
 
-We live in a surveillance economy. How important is digital privacy to you, and what inconveniences are you willing to accept to protect our family's data? Please specify your timeline and rules for our children regarding: 1) Access to the internet, 2) Ownership of smartphones/social media, and 3) The presence of 'smart' listening devices (like virtual assistants) in our living spaces.`,
+**Personal stance:**
+- How important is digital privacy?
+- What inconveniences are acceptable to protect family data?
+
+**Rules and timelines for children:**
+1. Access to the internet
+2. Ownership of smartphones/social media
+3. Presence of smart listening devices (virtual assistants) in living spaces`,
     order: 8,
   },
   {
-    text: `Extended Family Influence
+    title: "Extended Family Influence",
+    text: `Grandparents and extended family naturally want involvement in children's lives. However, worldviews may differ significantly.
 
-Grandparents and extended family naturally want to be involved in our children's lives. However, their worldviews may differ drastically from ours. What are the boundaries for unsupervised time with relatives who do not share our theology or lifestyle values? If a family member undermines our parenting or teaches our children concepts we deem unbiblical, are you willing to limit or cut off access, even if it causes relational conflict?`,
+**Boundaries to define:**
+- What are the limits for unsupervised time with relatives who don't share the family's theology or lifestyle values?
+
+**Conflict scenario:**
+If a family member undermines parenting or teaches concepts deemed unbiblical:
+- Is limiting or cutting off access acceptable?
+- Even if it causes relational conflict?`,
     order: 9,
   },
   {
-    text: `Cultural Engagement vs. Isolation
+    title: "Cultural Engagement vs. Isolation",
+    text: `Living in a suburban environment often means navigating consumerism and "Cultural Christianity."
 
-We intend to live in a suburban environment, which often comes with a culture of consumerism and 'Cultural Christianity.' How do we ensure our family remains distinct without becoming isolationist? What specific activities are 'green lights' and which are 'red lights'? Consider things like joining public school sports leagues (which may require Sunday play), participating in standard neighborhood holiday traditions (like Halloween), or allowing access to popular streaming entertainment (Disney/Netflix) to understand peer references. How do we explain to our children why they cannot do what the neighbor kids are doing without making them feel bitter?`,
+**Balance question:**
+How does a family remain distinct without becoming isolationist?
+
+**Categorize activities as green light or red light:**
+- Joining public school sports leagues (may require Sunday play)
+- Participating in neighborhood holiday traditions (Halloween)
+- Allowing access to popular streaming entertainment (Disney/Netflix) for peer reference
+
+**Communication:**
+How to explain to children why they can't do what neighbor kids are doing—without fostering bitterness?`,
     order: 10,
   },
 ];

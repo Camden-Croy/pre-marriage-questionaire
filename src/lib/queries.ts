@@ -89,6 +89,7 @@ export const getPromptWithResponses = cache(async (promptId: string): Promise<Pr
   // 6. Return PromptWithStatus
   return {
     id: prompt.id,
+    title: prompt.title,
     text: prompt.text,
     order: prompt.order,
     status,
@@ -168,6 +169,7 @@ export const getAllPromptsWithStatus = cache(async (): Promise<PromptWithStatus[
 
     return {
       id: prompt.id,
+      title: prompt.title,
       text: prompt.text,
       order: prompt.order,
       status,

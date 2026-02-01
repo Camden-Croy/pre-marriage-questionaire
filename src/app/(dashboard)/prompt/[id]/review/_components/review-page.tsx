@@ -9,6 +9,7 @@
 
 import { Review } from '@/components/review'
 import { StatusBadge } from '@/app/(dashboard)/_components/status-badge'
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
 import type { PromptStatus } from '@/types'
 import type { ResponseData, PartnerResponseData } from '@/components/review'
 
@@ -50,9 +51,7 @@ export function ReviewPage({
           </span>
           <StatusBadge status={status} />
         </div>
-        <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-          {promptText}
-        </h1>
+        <MarkdownRenderer content={promptText} className="text-xl font-semibold text-zinc-900 dark:text-zinc-100" />
       </div>
 
       {/* Overall status message */}

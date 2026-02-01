@@ -4,10 +4,11 @@
 // COMPOSER FRAME
 // ----------------------------------------------------------------------------
 // Layout wrapper for the Composer compound component.
-// Requirements: 11.1
+// Requirements: 11.1, 4.1
 // ============================================================================
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
 import { useComposer } from './composer-context'
 
 interface ComposerFrameProps {
@@ -23,9 +24,10 @@ export function ComposerFrame({ children }: ComposerFrameProps) {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
-          {meta.promptText}
-        </CardTitle>
+        <MarkdownRenderer 
+          content={meta.promptText} 
+          className="text-lg font-medium text-zinc-900 dark:text-zinc-100"
+        />
       </CardHeader>
       <CardContent className="space-y-4">
         {children}

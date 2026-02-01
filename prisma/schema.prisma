@@ -88,6 +88,7 @@ model Verification {
 /// Pre-seeded relationship prompts/questions
 model Prompt {
   id        String   @id @default(cuid())
+  title     String
   text      String   @db.Text
   order     Int      @default(0)
   createdAt DateTime @default(now())
