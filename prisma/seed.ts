@@ -41,7 +41,7 @@ Consider:
 
 Two frameworks often suggest different approaches:
 - **Secular clinical**: Emphasizes self-love, validating inner feelings as truth, avoiding shame
-- **Reformed Biblical**: Emphasizes identity in Christ, the reality of fallen nature, turning *outward* to God rather than inward
+- **Traditional Biblical**: Emphasizes identity in Christ, the reality of fallen nature, turning *outward* to God rather than inward
 
 Questions to address:
 1. If these frameworks suggest opposite solutions, which one takes precedence?
@@ -166,6 +166,61 @@ How does a family remain distinct without becoming isolationist?
 **Communication:**
 How to explain to children why they can't do what neighbor kids are doing—without fostering bitterness?`,
     order: 10,
+  },
+  {
+    title: "Family Size & Career Priorities",
+    text: `Children require significant investment of time and presence.
+
+**Family vision:**
+- How many children do you hope to have?
+- Is there a minimum or maximum number that feels right?
+
+**Career and family tension:**
+If blessed with the desired number of children:
+- Would you be willing to set aside career advancement to prioritize raising them?
+- Is this a temporary pause or a permanent shift in priorities?
+
+**Hierarchy of values:**
+Rank these in order of importance:
+1. Career fulfillment and professional identity
+2. Financial security through dual income
+3. Full-time presence with children during formative years`,
+    order: 11,
+  },
+  {
+    title: "Doctrinal Convictions",
+    text: `Theological alignment shapes family worship, church selection, and how Scripture is taught to children.
+
+**Positions to clarify:**
+- **Women in pastoral leadership**: Complementarian (male eldership only) or egalitarian (open to women pastors)?
+- **Charismatic gifts**: Continuationist (gifts like tongues and prophecy continue today) or cessationist (miraculous gifts ceased with the apostles)?
+
+**Church preferences:**
+What style of church feels most like home?
+- Expository, verse-by-verse preaching vs. topical sermons
+- Traditional hymns, modern hymns, or contemporary worship music
+- Liturgical structure vs. informal gathering
+
+**Non-negotiables:**
+Is there a doctrinal position where disagreement would be an obstacle to unity?`,
+    order: 12,
+  },
+  {
+    title: "Family of Origin & Authority",
+    text: `How someone relates to authority in their family of origin often shapes how they will relate to authority in marriage.
+
+**Reflection on upbringing:**
+- How would you describe your relationship with your father's leadership growing up?
+- If your father is a believer, do you hold his spiritual guidance in high regard? Why or why not?
+- If your father was absent or not a believer, who filled that leadership role?
+
+**Patterns to consider:**
+- How do you typically respond when you disagree with someone in authority over you?
+- Do you tend toward submission, negotiation, or resistance?
+
+**Connection to marriage:**
+How do you see your relationship with parental authority shaping your expectations for leadership and submission in marriage?`,
+    order: 13,
   },
 ];
 

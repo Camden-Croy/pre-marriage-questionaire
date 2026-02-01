@@ -133,3 +133,13 @@ model Acknowledgment {
   @@index([responseId])
   @@index([userId])
 }
+
+/// Public suggestions from trusted folks
+model Suggestion {
+  id        String   @id @default(cuid())
+  name      String   // Submitter's name (optional display name)
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@map("suggestion")
+}
