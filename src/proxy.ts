@@ -37,6 +37,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Allow public /topics route
+  if (pathname.startsWith("/topics")) {
+    return NextResponse.next();
+  }
+
   // Handle logged-in users
   if (isLoggedIn && session?.user?.email) {
     const isWhitelisted = isEmailWhitelisted(session.user.email);
