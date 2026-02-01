@@ -3,7 +3,7 @@
 // ============================================================================
 // TIPTAP EDITOR
 // ----------------------------------------------------------------------------
-// Core Tiptap editor implementation with bold, italic, and bullet list support.
+// Core Tiptap editor implementation with rich text formatting support.
 // Requirements: 3.2, 3.3, 3.4
 // ============================================================================
 
@@ -11,6 +11,8 @@ import { useEffect } from 'react'
 import { useEditor, EditorContent, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
+import Underline from '@tiptap/extension-underline'
+import Link from '@tiptap/extension-link'
 import { cn } from '@/lib/utils'
 
 interface TiptapEditorProps {
@@ -21,12 +23,7 @@ interface TiptapEditorProps {
 }
 
 /**
- * Tiptap editor with formatting support
- * 
- * Requirements:
- * - 3.2: Bold text formatting (via StarterKit)
- * - 3.3: Italic text formatting (via StarterKit)
- * - 3.4: Bullet point lists (via StarterKit)
+ * Tiptap editor with rich text formatting support
  */
 export function TiptapEditor({
   content,
@@ -37,18 +34,23 @@ export function TiptapEditor({
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        // Enable bold, italic, and bullet list from StarterKit
+        heading: { levels: [1, 2, 3] },
+        bulletList: {},
+        orderedList: {},
+        blockquote: {},
+        codeBlock: {},
+        code: {},
         bold: {},
         italic: {},
-        bulletList: {},
-        // Disable features we don't need
-        blockquote: false,
-        codeBlock: false,
-        heading: false,
+        strike: {},
         horizontalRule: false,
-        orderedList: false,
-        strike: false,
-        code: false,
+      }),
+      Underline,
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          class: 'text-rose-600 underline cursor-pointer',
+        },
       }),
       Placeholder.configure({
         placeholder: 'Share your thoughts...',
@@ -62,15 +64,7 @@ export function TiptapEditor({
     },
     editorProps: {
       attributes: {
-        class: cn(
-          'min-h-[200px] outline-none prose prose-sm dark:prose-invert max-w-none',
-          'prose-p:my-2 prose-ul:my-2 prose-li:my-0',
-          '[&_.is-editor-empty:first-child::before]:text-zinc-400',
-          '[&_.is-editor-empty:first-child::before]:content-[attr(data-placeholder)]',
-          '[&_.is-editor-empty:first-child::before]:float-left',
-          '[&_.is-editor-empty:first-child::before]:h-0',
-          '[&_.is-editor-empty:first-child::before]:pointer-events-none'
-        ),
+        class: 'tiptap-content min-h-[200px] outline-none',
       },
     },
   })
